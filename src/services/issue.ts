@@ -3,8 +3,6 @@ import { getId, prettifyLabels } from "./utils";
 
 export namespace Issue {
 
-
-
   export function newIssue(payload: IncomingLinearWebhookPayload) {
     return fetch(process.env.WEBHOOK!, {
       method: 'POST',
