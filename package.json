@@ -28,9 +28,9 @@
   },
   "homepage": "https://github.com/ezolla/linear-app-discord#readme",
   "dependencies": {
+    "axios": "^0.21.3",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "node-fetch": "^2.6.1",
     "util": "^0.12.3",
     "webhook-discord": "^3.7.4"
   },

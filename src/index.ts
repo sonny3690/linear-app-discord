@@ -14,8 +14,13 @@ app.post<Request['params'], unknown, IncomingLinearWebhookPayload>('/linear', as
   const payload = req.body;
 
   if (payload.action === 'create' && payload.type === 'Issue') {
-    await Issue.newIssue(payload);
+    const res = await Issue.newIssue(payload);
+    console.log('res', res)
   }
+
+  // if (payload.action === 'update' && payload.type === 'Issue') {
+  //   await Issue.modifyIssue(payload);
+  // }
 
   res.sendStatus(200);
 });
