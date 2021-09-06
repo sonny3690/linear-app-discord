@@ -15,7 +15,11 @@ app.post<Request['params'], unknown, IncomingLinearWebhookPayload>('/linear', as
 
   if (payload.action === 'create' && payload.type === 'Issue') {
     const res = await Issue.newIssue(payload);
-    console.log('res', res)
+  }
+
+  if (payload.action === 'update' && payload.type === 'Issue') {
+    console.log('modified issue')
+    const res = await Issue.modifyIssue(payload);
   }
 
   // if (payload.action === 'update' && payload.type === 'Issue') {
