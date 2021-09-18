@@ -75,6 +75,6 @@ export interface UpdatedFrom {
 }
 
 export interface IssueCache {
-  [url: IncomingLinearWebhookPayload['url']]: string
+  [url: string]: string
 }
 
