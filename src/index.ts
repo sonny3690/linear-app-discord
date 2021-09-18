@@ -10,6 +10,7 @@ const port: number = parseInt(process.env.PORT ?? '3000');
 
 app.use(express.json());
 
+
 app.post<Request['params'], unknown, IncomingLinearWebhookPayload>('/linear', async (req, res) => {
   const payload = req.body;
 

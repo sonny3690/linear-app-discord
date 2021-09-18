@@ -1,6 +1,9 @@
-import { IncomingLinearWebhookPayload } from "src/types";
+import { IncomingLinearWebhookPayload, IssueCache } from "src/types";
 import { getId, POST } from "./utils";
 export namespace Issue {
+
+  const issueCache: IssueCache = {}
+
   function describeIssue(payload: IncomingLinearWebhookPayload, authorName: string) {
     return ({
       color: 0x4752b2,
@@ -37,10 +40,31 @@ export namespace Issue {
         inline: false,
       },
     ]
-
   }
 
+  // monitors if issue was created or if there was a status change 
+  function isIssueAlreadyCached(payload: IncomingLinearWebhookPayload) {
+    // worth writing tests for some of these util functions but defer since it's not user facing
+    const url = payload.url
+    const status = payload.data.state?.name as string
+
+    if (url in issueCache) {
+      if (status === issueCache[url]) {
+        return true
+      }
+    }
+
+    issueCache[url] = status
+    return false
+  }
+
+
+
   export function newIssue(payload: IncomingLinearWebhookPayload) {
+
+    if (isIssueAlreadyCached(payload)) {
+      return
+    }
 
     const res = POST(
       {
@@ -54,6 +78,10 @@ export namespace Issue {
 
 
   export function modifyIssue(payload: IncomingLinearWebhookPayload) {
+
+    if (isIssueAlreadyCached(payload)) {
+      return
+    }
 
     const res = POST(
       {

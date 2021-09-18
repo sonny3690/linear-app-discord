@@ -73,3 +73,8 @@ export interface UpdatedFrom {
   labels: any[];
   priority?: number;
 }
+
+export interface IssueCache {
+  [url: IncomingLinearWebhookPayload['url']]: string
+}
+
